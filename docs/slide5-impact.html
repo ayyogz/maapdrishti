@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impact & Benefits — SIH 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f172a;
+      --ink-soft: #334155;
+      --ink-muted: #64748b;
+      --paper: #ffffff;
+      --paper-alt: #f8fafc;
+      --line: #e2e8f0;
+      --accent: #1e3a8a;
+      --accent-soft: #dbeafe;
+      --accent-bright: #3b82f6;
+      --warm: #c2410c;
+      --warm-soft: #fff7ed;
+      --green: #15803d;
+      --green-soft: #dcfce7;
+      --focus: #3b82f6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #f8fafc;
+        --ink-soft: #cbd5e1;
+        --ink-muted: #94a3b8;
+        --paper: #0f172a;
+        --paper-alt: #1e293b;
+        --line: #334155;
+        --accent: #93c5fd;
+        --accent-soft: #1e3a5f;
+        --accent-bright: #60a5fa;
+        --warm: #fb923c;
+        --warm-soft: #3d1f00;
+        --green: #86efac;
+        --green-soft: #052e16;
+        --focus: #60a5fa;
+      }
+    }
+
+    [data-theme="dark"] {
+      --ink: #f8fafc;
+      --ink-soft: #cbd5e1;
+      --ink-muted: #94a3b8;
+      --paper: #0f172a;
+      --paper-alt: #1e293b;
+      --line: #334155;
+      --accent: #93c5fd;
+      --accent-soft: #1e3a5f;
+      --accent-bright: #60a5fa;
+      --warm: #fb923c;
+      --warm-soft: #3d1f00;
+      --green: #86efac;
+      --green-soft: #052e16;
+      --focus: #60a5fa;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .slide {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .slide { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); }
+    }
+
+    /* Header Bar */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-alt);
+    }
+
+    .team-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .slide-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-align: center;
+      flex: 1;
+      padding: 0 24px;
+    }
+
+    .event-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .event-tag strong {
+      color: var(--warm);
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* Main Content Area */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 32px 40px;
+    }
+
+    /* Left Column — Metrics */
+    .metrics-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border-right: 1px solid var(--line);
+      padding-right: 40px;
+    }
+
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .metric-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--paper);
+      background: var(--accent);
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .metric-badge.warm { background: var(--warm); }
+    .metric-badge.green { background: var(--green); }
+
+    .metric-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .metric-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .metric-desc {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    .metric-desc em { color: var(--warm); font-style: normal; font-weight: 500; }
+
+    /* Right Column — Strategic Impact */
+    .impact-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-left: 40px;
+    }
+
+    .impact-card {
+      background: var(--paper-alt);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 16px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .impact-card:hover {
+      border-color: var(--accent-bright);
+      box-shadow: 0 8px 24px rgba(30, 58, 138, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .impact-card:hover { box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15); }
+    }
+
+    .impact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .impact-icon.consumer { background: var(--accent-soft); color: var(--accent); }
+    .impact-icon.industry { background: var(--warm-soft); color: var(--warm); }
+    .impact-icon.gov { background: var(--green-soft); color: var(--green); }
+    .impact-icon.planet { background: #f3e8ff; color: #7c3aed; }
+
+    @media (prefers-color-scheme: dark) {
+      .impact-icon.consumer { background: var(--accent-soft); color: var(--accent-bright); }
+      .impact-icon.industry { background: var(--warm-soft); color: var(--warm); }
+      .impact-icon.gov { background: var(--green-soft); color: var(--green); }
+      .impact-icon.planet { background: #2e1065; color: #c4b5fd; }
+    }
+
+    .impact-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .impact-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .impact-text {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    .impact-text strong { color: var(--ink); font-weight: 600; }
+
+    /* Footer Bar */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      border-top: 1px solid var(--line);
+      background: var(--paper-alt);
+    }
+
+    .integration-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--paper);
+      background: var(--accent);
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    .integration-text {
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    .integration-text strong { color: var(--accent); font-weight: 600; }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px var(--green-soft);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .status-dot { box-shadow: 0 0 0 2px var(--green-soft); }
+    }
+
+    /* Print / Export */
+    @media print {
+      body { background: white; padding: 0; }
+      .slide { box-shadow: none; border: none; border-radius: 0; max-width: none; height: 100vh; }
+    }
+
+    @media (max-width: 900px) {
+      .slide { border-radius: 0; max-width: 100%; height: auto; min-height: 100vh; }
+      .main { grid-template-columns: 1fr; }
+      .metrics-col { border-right: none; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 24px; }
+      .impact-col { padding-left: 0; padding-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <article class="slide" role="img" aria-label="Impact and Benefits slide for Team Enver A SIH 2026 presentation">
+    <header class="header">
+      <span class="team-badge">TEAM ENVER A</span>
+      <h1 class="slide-title">IMPACT & BENEFITS</h1>
+      <div class="event-tag">SMART INDIA<br><strong>HACKATHON 2026</strong></div>
+    </header>
+
+    <main class="main">
+      <section class="metrics-col" aria-labelledby="metrics-label">
+        <p class="section-label" id="metrics-label">Operational Scale</p>
+
+        <article class="metric-row">
+          <span class="metric-badge">30× Speedup</span>
+          <div class="metric-content">
+            <p class="metric-headline">45 min → 90 seconds</p>
+            <p class="metric-desc">End-to-end scan to digitally signed inspection report</p>
+          </div>
+        </article>
+
+        <article class="metric-row">
+          <span class="metric-badge warm">20× Capacity</span>
+          <div class="metric-content">
+            <p class="metric-headline">Daily inspection throughput</p>
+            <p class="metric-desc">Products checked per enforcement officer per shift</p>
+          </div>
+        </article>
+
+        <article class="metric-row">
+          <span class="metric-badge">9 Declarations</span>
+          <div class="metric-content">
+            <p class="metric-headline">Mandatory legal checks automated</p>
+            <p class="metric-desc">MRP, Net Qty, Expiry, Origin, Font Size — verified in real time</p>
+          </div>
+        </article>
+
+        <article class="metric-row">
+          <span class="metric-badge warm">448 CCPA Cases</span>
+          <div class="metric-content">
+            <p class="metric-headline">Manual baseline (2020–2022)</p>
+            <p class="metric-desc">Nationwide cases logged — demonstrates the bottleneck of manual audits</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="impact-col" aria-labelledby="impact-label">
+        <p class="section-label" id="impact-label">Strategic & ESG Value</p>
+
+        <article class="impact-card">
+          <span class="impact-icon consumer" aria-hidden="true">👥</span>
+          <div class="impact-body">
+            <p class="impact-title">Consumer & Officer Empowerment</p>
+            <p class="impact-text">Instant verification of <strong>9 mandatory declarations</strong> replaces subjective manual measurements with objective digital audit trails.</p>
+          </div>
+        </article>
+
+        <article class="impact-card">
+          <span class="impact-icon industry" aria-hidden="true">🏭</span>
+          <div class="impact-body">
+            <p class="impact-title">Pre-Production Risk Reduction</p>
+            <p class="impact-text">Digital audits <strong>before mass printing</strong> prevent lakhs in reprinted labels, batch recalls, and compliance penalties.</p>
+          </div>
+        </article>
+
+        <article class="impact-card">
+          <span class="impact-icon gov" aria-hidden="true">🏛️</span>
+          <div class="impact-body">
+            <p class="impact-title">Government Intelligence</p>
+            <p class="impact-text">Centralized dashboard mapping <strong>non-compliance trends</strong> nationwide — enabling targeted enforcement, not random sampling.</p>
+          </div>
+        </article>
+
+        <article class="impact-card">
+          <span class="impact-icon planet" aria-hidden="true">🌱</span>
+          <div class="impact-body">
+            <p class="impact-title">Sustainable Marketplace Shift</p>
+            <p class="impact-text">Makes voluntary <strong>pre-compliance cheaper than enforcement risk</strong> — preventing tons of non-compliant plastic packaging from reaching landfills.</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="integration-badge">eMaap API</span>
+      <p class="integration-text">Native integration with <strong>eMaap</strong> — India's Legal Metrology Enforcement Portal</p>
+      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Production Ready</span>
+    </footer>
+  </article>
+</body>
+</html>

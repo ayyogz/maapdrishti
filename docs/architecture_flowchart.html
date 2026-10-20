@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Metrology App Architecture</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --ink: #1c1a17;
+    --muted: #6b6660;
+    --line: #d8d2c7;
+    --panel: #ffffff;
+    --accent: #0a7d5c;
+    --warn: #b45309;
+    --bad: #b32424;
+    --info: #3a5b8c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #171614;
+      --ink: #ece7dd;
+      --muted: #9b948a;
+      --line: #3a362f;
+      --panel: #20201c;
+      --accent: #3dd9a3;
+      --warn: #f0a84e;
+      --bad: #f27070;
+      --info: #8fb0e4;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #171614;
+    --ink: #ece7dd;
+    --muted: #9b948a;
+    --line: #3a362f;
+    --panel: #20201c;
+    --accent: #3dd9a3;
+    --warn: #f0a84e;
+    --bad: #f27070;
+    --info: #8fb0e4;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+  }
+  main { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 { font-size: 1.9rem; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--muted); margin: 0 0 32px; font-size: 1rem; }
+  figure { margin: 0 0 36px; }
+  .svg-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); padding: 16px; }
+  svg { display: block; max-width: 100%; height: auto; }
+  figcaption { color: var(--muted); font-size: 0.86rem; margin-top: 10px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: 0.86rem; margin-top: 12px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--line); display: inline-block; }
+  .note { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 18px; background: var(--panel); font-size: 0.92rem; }
+  .note h2 { font-size: 1rem; margin: 0 0 6px; }
+  .note p, .note ul { margin: 4px 0; }
+  .note ul { padding-left: 20px; }
+  /* SVG diagram styling */
+  .node rect { fill: var(--panel); stroke: var(--line); }
+  .node .lbl { fill: var(--ink); font-size: 13px; font-weight: 600; }
+  .node .sub { fill: var(--muted); font-size: 11px; }
+  .node .step { fill: var(--muted); font-size: 10px; letter-spacing: 1px; }
+  .edge { stroke: var(--muted); stroke-width: 1.6; fill: none; }
+  .edge .lbl { fill: var(--muted); font-size: 11px; }
+  aruco-edge .edge { stroke: var(--accent); }
+  .compliance-edge .edge { stroke: var(--warn); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Legal Metrology Compliance Pipeline</h1>
+  <p class="sub">Offline-first Android app · PaddleOCR + OpenCV · ArUco-calibrated font measurement &nbsp;·&nbsp; Legal Metrology (Packaged Commodities) Rules 2011</p>
+
+  <figure>
+    <div class="svg-wrap">
+    <svg viewBox="0 0 1000 640" role="img" aria-label="The offline-first compliance pipeline from camera capture to signed report and sync, with CLAHE pre-processing, PaddleOCR, ArUco calibration, the rule engine, and local SQLite storage">
+      <!-- ============ STAGE 1: CAPTURE ============ -->
+      <g class="node">
+        <rect x="20" y="60" width="180" height="64" rx="8"/>
+        <text class="step" x="40" y="78">STAGE 1 · CAPTURE</text>
+        <text class="lbl" x="40" y="96">Photo of label</text>
+        <text class="sub" x="40" y="112">officer's phone camera</text>
+      </g>
+      <g class="node">
+        <rect x="20" y="160" width="180" height="64" rx="8"/>
+        <text class="step" x="40" y="178">STAGE 2 · IMAGE</text>
+        <text class="lbl" x="40" y="196">SHA-256 hash stored</text>
+        <text class="sub" x="40" y="212">before any processing</text>
+      </g>
+      <g class="node">
+        <rect x="20" y="280" width="180" height="64" rx="8"/>
+        <text class="step" x="40" y="298">STAGE 3 · PRE-PROCESS</text>
+        <text class="lbl" x="40" y="316">CLAHE + deskew</text>
+        <text class="sub" x="40" y="332">glare &amp; curvature</text>
+      </g>
+
+      <g class="edge"><line x1="110" y1="124" x2="110" y2="160"/></g>
+      <g class="edge"><line x1="110" y1="224" x2="110" y2="280"/></g>
+
+      <!-- ============ STAGE 4: OCR + ARUCO ============ -->
+      <g class="node">
+        <rect x="290" y="120" width="190" height="64" rx="8"/>
+        <text class="step" x="310" y="138">STAGE 4 · OCR</text>
+        <text class="lbl" x="310" y="156">PaddleOCR v6</text>
+        <text class="sub" x="310" y="172">text + bounding boxes</text>
+      </g>
+      <g class="node">
+        <rect x="290" y="240" width="190" height="80" rx="8"/>
+        <text class="step" x="310" y="258">STAGE 4b · CALIBRATION</text>
+        <text class="lbl" x="310" y="276">ArUco markers</text>
+        <text class="sub" x="310" y="292">pixel→mm ratio</text>
+        <text class="sub" x="310" y="306">(1 marker = scale,</text>
+        <text class="sub" x="310" y="320">4 = deskew)</text>
+      </g>
+
+      <!-- ============ STAGE 5: RULE ENGINE ============ -->
+      <g class="node">
+        <rect x="560" y="180" width="200" height="152" rx="8"/>
+        <text class="step" x="580" y="198">STAGE 5 · RULE ENGINE</text>
+        <text class="lbl" x="580" y="218">Legal Metrology Rules</text>
+        <text class="sub" x="580" y="240">· 10 mandatory declarations</text>
+        <text class="sub" x="580" y="256">· font size ≥1mm (Rule 6(2))</text>
+        <text class="sub" x="580" y="272">· net qty, MRP, dates, origin</text>
+        <text class="sub" x="580" y="288">· regex field extraction</text>
+        <text class="sub" x="580" y="306">(future: YOLO layout, NER)</text>
+      </g>
+
+      <!-- edges into rule engine -->
+      <g class="edge"><path d="M480 152 L540 152 L540 220 L560 220"/></g>
+      <g class="edge"><line x1="480" y1="280" x2="560" y2="280"/></g>
+
+      <!-- ============ STAGE 6: REPORT ============ -->
+      <g class="node">
+        <rect x="840" y="180" width="140" height="64" rx="8"/>
+        <text class="step" x="858" y="198">STAGE 6 · REPORT</text>
+        <text class="lbl" x="858" y="216">Compliant?</text>
+        <text class="sub" x="858" y="232">verdict + percentage</text>
+      </g>
+      <g class="edge"><line x1="760" y1="220" x2="840" y2="220"/></g>
+      <g class="edge"><text class="lbl" x="770" y="212">checks</text></g>
+
+      <!-- ============ SHA-256 ============ -->
+      <g class="node">
+        <rect x="840" y="290" width="140" height="80" rx="8"/>
+        <text class="step" x="858" y="308">INTEGRITY</text>
+        <text class="lbl" x="858" y="326">SHA-256</text>
+        <text class="sub" x="858" y="344">image + OCR + report</text>
+        <text class="sub" x="858" y="358">tamper-proof</text>
+      </g>
+      <g class="edge"><line x1="910" y1="244" x2="910" y2="290"/></g>
+
+      <!-- ============ SYNC ============ -->
+      <g class="node">
+        <rect x="290" y="440" width="190" height="80" rx="8"/>
+        <text class="step" x="310" y="458">STAGE 7 · STORAGE</text>
+        <text class="lbl" x="310" y="476">SQLite (offline)</text>
+        <text class="sub" x="310" y="492">history per officer</text>
+        <text class="sub" x="310" y="506">queued when offline</text>
+      </g>
+      <g class="node">
+        <rect x="560" y="440" width="200" height="80" rx="8"/>
+        <text class="step" x="580" y="458">STAGE 8 · SYNC</text>
+        <text class="lbl" x="580" y="476">VPS on connect</text>
+        <text class="sub" x="580" y="492">cloud DB + dashboard</text>
+        <text class="sub" x="580" y="506">verify hashes</text>
+      </g>
+      <g class="edge"><line x1="480" y1="480" x2="560" y2="480"/></g>
+      <g class="edge"><text class="lbl" x="500" y="472">push</text></g>
+
+      <!-- stage 1-4 connection down -->
+      <g class="edge"><text class="lbl" x="220" y="348">to OCR</text></g>
+      <g class="edge"><text class="lbl" x="300" y="260">feeds ratio → rule engine</text></g>
+
+      <!-- vertical connector report -> storage -->
+      <g class="edge"><path d="M620 332 L620 400 L385 400 L385 440"/></g>
+      <g class="edge"><text class="lbl" x="520" y="392">persist + hash</text></g>
+
+      <!-- legend -->
+      <g class="edge" stroke="none"><text class="lbl" x="30" y="580">Legend:</text></g>
+      <g><circle cx="90" cy="576" r="6" fill="var(--accent)"/><text class="lbl" x="102" y="580" fill="var(--muted)">ArUco calibration path</text></g>
+      <g><circle cx="300" cy="576" r="6" fill="var(--warn)"/><text class="lbl" x="312" y="580" fill="var(--muted)">compliance engine</text></g>
+    </svg>
+    </div>
+    <figcaption>Data flows left to right and down: capture → immutable hash → pre-processing → OCR &amp; calibration → rule engine → signed report → offline store → sync. The image is hashed <em>before</em> any processing so the original evidence stays verifiable.</figcaption>
+  </figure>
+
+  <div class="note">
+    <h2>Notes on this flow</h2>
+    <ul>
+      <li>SHA-256 is computed on the <em>original</em> image before CLAHE/deskew — preprocessing must never touch what gets hashed.</li>
+      <li>Rule engine currently uses regex; YOLOv8-nano (layout) and MobileNetV3 (font style) are planned improvements.</li>
+      <li>Font size = bounding-box height in px × ArUco mm/px ratio; threshold 1.00&nbsp;mm.</li>
+    </ul>
+  </div>
+</main>
+</body>
+</html>
