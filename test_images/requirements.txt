@@ -1,0 +1,3 @@
+# For test_images/create_marker.py and gen_test.py (not needed to build the app)
+opencv-python
+numpy

@@ -29,7 +29,7 @@ put(img, "Country of Origin: India", 680)
 # 3) Paste the ArUco marker at bottom-right (for scale calibration)
 img[740:940, 530:730] = marker_bgr.copy()
 
-cv2.imwrite("/home/ayaan/code/SIH/paddleocr_test/test_images/test_label_aruco.jpg", img)
+cv2.imwrite("test_label_aruco.jpg", img)
 print("Wrote test_label_aruco.jpg", img.shape)
 
 # 4) Also verify the marker is detectable

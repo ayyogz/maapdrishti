@@ -1,0 +1,43 @@
+name: Build APK
+
+on:
+  push:
+    tags: ['v*']          # tagging v1.0.1 builds and publishes a release
+  workflow_dispatch:      # "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write         # needed to attach APKs to a release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+          # To pin the exact version you built with, run `flutter --version`
+          # locally and uncomment:
+          flutter-version: '3.47.1'
+
+      - run: flutter pub get
+
+      - run: flutter build apk --release --split-per-abi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maapdrishti-apks
+          path: build/app/outputs/flutter-apk/*.apk
+
+      - name: Attach APKs to the GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/app/outputs/flutter-apk/*.apk

@@ -22,7 +22,7 @@ scale = 33
 img_size = scale * (size + 2*border)  # 198 pixels
 
 # Create PGM (portable graymap) format
-with open('/home/ayaan/code/SIH/paddleocr_test/test_images/aruco_id23.pgm', 'w') as f:
+with open('aruco_id23.pgm', 'w') as f:
     f.write(f"P2\n{img_size} {img_size}\n1\n")
     for row in matrix:
         for val in row:
